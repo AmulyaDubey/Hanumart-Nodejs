@@ -1,4 +1,5 @@
 const Product = require("../../models/product.model");
+const Review = require("../../models/review.model");
 
 exports.productById = async (req, res, next, id) => {
   Product.findById(id)
@@ -33,7 +34,13 @@ exports.updateProduct = async (req, res) => {
 };
 
 exports.deleteProduct = async (req, res) => {
-  req.product.delete();
+  //delete associated reviews
+  const reviewIds = req.product.reviews;
+  Review.deleteMany({ _id: { $in: reviewIds } }, (err, result) => {
+    console.log({ result });
+  });
+  //delete product
+  await req.product.delete();
   res.json({ message: "Product deleted successfully!" });
 };
 

@@ -10,6 +10,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth.routes");
 const productRoutes = require("./routes/product.routes");
 const userRoutes = require("./routes/user.routes");
+const orderRoutes = require("./routes/order.routes");
 
 const port = process.env.PORT;
 
@@ -33,6 +34,7 @@ app.use(cookieParser());
 app.use("/", authRoutes);
 app.use("/", productRoutes);
 app.use("/", userRoutes);
+app.use("/", orderRoutes);
 
 app.listen(port, () => {
   console.log("Server is up on port " + port);

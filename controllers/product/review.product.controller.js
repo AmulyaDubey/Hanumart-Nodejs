@@ -32,15 +32,16 @@ exports.getProductReviews = async (req, res) => {
 };
 
 exports.deleteReview = async (req, res) => {
+  //delete the review from a products review list
   req.product.reviews.splice(
     req.product.reviews.findIndex(
       (a) => a._id.toString() === req.review._id.toString()
     ),
     1
   );
-
+  //calcuate rating
   req.product.rating = this.calculateRating(req.product.reviews);
-
+  // remove the review by id
   await req.review.remove();
   await req.product.save();
   res.json(req.product);

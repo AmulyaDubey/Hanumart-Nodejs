@@ -3,6 +3,8 @@ const { ObjectId } = mongoose.Schema;
 const uuidv1 = require("uuidv1");
 const crypto = require("crypto");
 const Product = require("./product.model");
+const Address = require("./address.model");
+const Order = require("./order.model");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -34,6 +36,22 @@ const userSchema = new mongoose.Schema({
     {
       type: ObjectId,
       ref: Product,
+    },
+  ],
+  address: [
+    {
+      type: ObjectId,
+      ref: Address,
+    },
+  ],
+  recentAddress: {
+    type: ObjectId,
+    ref: Address,
+  },
+  orders: [
+    {
+      type: ObjectId,
+      ref: Order,
     },
   ],
 });
