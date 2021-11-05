@@ -21,6 +21,7 @@ const {
   addUserAddress,
   removeAddress,
   addressById,
+  getUserAddress
 } = require("../controllers/user/address.controller");
 
 const router = express.Router();
@@ -40,6 +41,7 @@ router.post("/user/:userId/add-to-wishlist/:itemId", addToWishlist);
 router.delete("/user/:userId/remove-from-wishlist/:itemId", removeFromWishlist);
 
 //Address Routes
+router.get("/user/:userId/address", getUserAddress);
 router.post("/user/:userId/add-address", addUserAddress);
 router.delete("/remove-address/:addressId", removeAddress);
 

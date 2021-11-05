@@ -36,9 +36,8 @@ exports.updateProduct = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
   //delete associated reviews
   const reviewIds = req.product.reviews;
-  Review.deleteMany({ _id: { $in: reviewIds } }, (err, result) => {
-    console.log({ result });
-  });
+  Review.deleteMany({ _id: { $in: reviewIds } });
+
   //delete product
   await req.product.delete();
   res.json({ message: "Product deleted successfully!" });
@@ -52,9 +51,26 @@ exports.listProducts = async (req, res) => {
 exports.searchProducts = async (req, res) => {
   const { words } = req.body;
 
-  Product.find({ $text: { $search: words } }, { score: { $meta: "textScore" } })
+  var searchedString = words.replace(/ /g, "|");
+  var regex = new RegExp(searchedString, "i");
+
+  let exact = await Product.find(
+    { $text: { $search: words } },
+    { score: { $meta: "textScore" } }
+  )
     .sort({ score: { $meta: "textScore" } })
-    .exec((err, list) => {
-      res.json(list);
-    });
+    .exec();
+
+  let partial = await Product.find({
+    name: { $regex: regex },
+  }).exec();
+
+  res.json(merge(exact, partial));
+};
+
+const merge = (A, B) => {
+  let result = A;
+  let ids = A.map((x) => x._id.toString());
+  let extra = B.filter((x) => !ids.includes(x._id.toString()));
+  return [...result, ...extra];
 };

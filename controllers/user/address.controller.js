@@ -15,6 +15,10 @@ exports.addressById = (req, res, next, id) => {
     });
 };
 
+exports.getUserAddress = (req, res)=>{
+  res.send(req.user.address)
+}
+
 exports.addUserAddress = async (req, res) => {
   const postedBy = req.user._id;
   const addressData = {

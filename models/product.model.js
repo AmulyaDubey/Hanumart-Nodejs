@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema;
 const Review = require("./review.model");
+const Seller = require("./seller.model");
 
 const productSchema = new mongoose.Schema({
   name: {
@@ -14,6 +15,10 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   stock: {
+    type: Number,
+    required: true,
+  },
+  price: {
     type: Number,
     required: true,
   },
@@ -31,10 +36,12 @@ const productSchema = new mongoose.Schema({
       ref: Review,
     },
   ],
-  // seller: {
-  //   type: String,
-  //   required: true,
-  // },
+  seller: {
+    type: ObjectId,
+    ref: Seller,
+    // required: true,
+  },
 });
+
 
 module.exports = mongoose.model("Product", productSchema);

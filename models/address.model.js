@@ -29,10 +29,6 @@ const addressSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  landmark: {
-    type: String,
-    required: true,
-  },
   postedBy: {
     type: ObjectId,
     ref: 'User',
