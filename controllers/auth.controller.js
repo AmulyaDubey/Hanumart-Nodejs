@@ -54,7 +54,7 @@ exports.requireSignin = expressJwt({
 });
 
 exports.socialLogin = (req, res) => {
-  let user = User.findOne({ email: req.body.email }, (err, user) => {
+  User.findOne({ email: req.body.email }, (err, user) => {
     if (err || !user) {
       // create a new user and login
       user = new User(req.body);
@@ -75,4 +75,18 @@ exports.socialLogin = (req, res) => {
     const { _id, name, email } = user;
     return res.json({ token, user: { _id, name, email } });
   });
+};
+
+exports.hasAuthorization = (req, res, next) => {
+  let sameUser = req.profile && req.auth && req.profile._id == req.auth._id;
+  let adminUser = req.profile && req.auth && req.auth.role === 'admin';
+
+  const authorized = sameUser || adminUser;
+
+  if (!authorized) {
+      return res.status(403).json({
+          error: 'User is not authorized to perform this action'
+      });
+  }
+  next();
 };

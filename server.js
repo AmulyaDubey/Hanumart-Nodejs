@@ -11,6 +11,7 @@ const authRoutes = require("./routes/auth.routes");
 const productRoutes = require("./routes/product.routes");
 const userRoutes = require("./routes/user.routes");
 const orderRoutes = require("./routes/order.routes");
+const sellerRoutes= require('./routes/seller.routes')
 
 const port = process.env.PORT;
 
@@ -35,6 +36,8 @@ app.use("/", authRoutes);
 app.use("/", productRoutes);
 app.use("/", userRoutes);
 app.use("/", orderRoutes);
+app.use("/", sellerRoutes);
+
 
 app.listen(port, () => {
   console.log("Server is up on port " + port);

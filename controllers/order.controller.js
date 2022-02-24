@@ -14,12 +14,18 @@ exports.orderById = (req, res, next, id) => {
 };
 
 exports.createOrder = async (req, res) => {
-  //create order
+  //Send products list per seller
+
   const order = new Order(req.body);
   await order.save();
   //add order id to user and update recent address
   req.user.orders.push(order._id);
   req.user.recentAddress = order.address;
+
+  //populate seller and add to his orders
+  await order.populate("seller");
+  order.seller.orders = [...order.seller.orders, order._id];
+  await order.save();
   //make address active
   Address.findByIdAndUpdate(order.address, { isActive: true }, (err, doc) => {
     if (err) return res.json({ error: "Could not place order" });

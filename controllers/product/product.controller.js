@@ -1,5 +1,6 @@
 const Product = require("../../models/product.model");
 const Review = require("../../models/review.model");
+const Seller = require("../../models/seller.model");
 
 exports.productById = async (req, res, next, id) => {
   Product.findById(id)
@@ -18,6 +19,16 @@ exports.productById = async (req, res, next, id) => {
 exports.createProduct = async (req, res) => {
   const product = new Product(req.body);
   await product.save();
+  const sellerId = req.body.seller;
+  Seller.findById(sellerId).exec((err, seller) => {
+    if (err || !seller) {
+      return res.status(400).json({
+        error: "Seller not found",
+      });
+    }
+    seller.products = [...seller.products, product._id];
+    seller.save();
+  });
   res.json({ message: "Product successfully created" });
 };
 

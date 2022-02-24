@@ -16,10 +16,13 @@ const {
   deleteReview,
 } = require("../controllers/product/review.product.controller");
 
+const { requireSignin } = require("../controllers/auth.controller");
+
+
 const router = express.Router();
 
 //product routes
-router.post("/create-product", createProduct);
+router.post("/create-product", requireSignin, createProduct);
 router.get("/view-product/:productId", viewProduct);
 router.put("/update-product/:productId", updateProduct);
 router.delete("/delete-product/:productId", deleteProduct);
