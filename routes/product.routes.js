@@ -9,6 +9,8 @@ const {
   searchProducts,
 } = require("../controllers/product/product.controller");
 
+const {} = require("../routes/image.routes");
+
 const {
   postProductReview,
   reviewById,
@@ -17,7 +19,6 @@ const {
 } = require("../controllers/product/review.product.controller");
 
 const { requireSignin } = require("../controllers/auth.controller");
-
 
 const router = express.Router();
 

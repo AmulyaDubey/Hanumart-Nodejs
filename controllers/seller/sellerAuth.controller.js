@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const Seller = require('../../models/seller.model');
+const Seller = require("../../models/seller.model");
 const User = require("../../models/user.model");
 
 exports.sellerById = (req, res, next, id) => {

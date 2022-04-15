@@ -11,7 +11,9 @@ const authRoutes = require("./routes/auth.routes");
 const productRoutes = require("./routes/product.routes");
 const userRoutes = require("./routes/user.routes");
 const orderRoutes = require("./routes/order.routes");
-const sellerRoutes= require('./routes/seller.routes')
+const sellerRoutes = require("./routes/seller.routes");
+const imageRoutes = require("./routes/image.routes");
+const offerRoutes = require("./routes/offer.routes");
 
 const port = process.env.PORT;
 
@@ -31,13 +33,15 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/", authRoutes);
 app.use("/", productRoutes);
 app.use("/", userRoutes);
 app.use("/", orderRoutes);
 app.use("/", sellerRoutes);
-
+app.use("/", offerRoutes);
+app.use("/image", imageRoutes);
 
 app.listen(port, () => {
   console.log("Server is up on port " + port);
