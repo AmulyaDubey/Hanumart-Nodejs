@@ -23,8 +23,8 @@ exports.createOrder = async (req, res) => {
   req.user.recentAddress = order.address;
 
   //populate seller and add to his orders
-  await order.populate("seller");
-  order.seller.orders = [...order.seller.orders, order._id];
+  // await order.populate("seller");
+  // order.seller.orders = [...order.seller.orders, order._id];
   await order.save();
   //make address active
   Address.findByIdAndUpdate(order.address, { isActive: true }, (err, doc) => {

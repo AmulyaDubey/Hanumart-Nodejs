@@ -104,7 +104,7 @@ const deleteImage = (id) => {
   if (!id || id === "undefined") return res.status(400).send("no image id");
   const _id = new mongoose.Types.ObjectId(id);
   gfs.delete(_id, (err) => {
-    if (err) return res.status(500).send("image deletion error");
+    if (err) return console.log(err);
   });
 };
 

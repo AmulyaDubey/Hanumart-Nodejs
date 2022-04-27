@@ -53,7 +53,7 @@ const productSchema = new mongoose.Schema({
   thumbnail: {
     type: ObjectId,
   },
-  seller: {
+  sellerId: {
     type: ObjectId,
     ref: Seller,
     // required: true,

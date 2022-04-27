@@ -23,10 +23,11 @@ const { requireSignin } = require("../controllers/auth.controller");
 const router = express.Router();
 
 //product routes
+//TODO: add authorization fn
 router.post("/create-product", requireSignin, createProduct);
 router.get("/view-product/:productId", viewProduct);
 router.put("/update-product/:productId", updateProduct);
-router.delete("/delete-product/:productId", deleteProduct);
+router.delete("/delete-product/:productId", requireSignin, deleteProduct);
 router.get("/products-list", listProducts);
 router.post("/search/products", searchProducts);
 

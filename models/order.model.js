@@ -6,7 +6,7 @@ const Address = require("./address.model");
 const orderSchema = new mongoose.Schema({
   products: [
     {
-      product: { type: ObjectId, ref: 'Product' },
+      product: { type: ObjectId, ref: "Product" },
       quantity: { type: Number },
     },
   ],
@@ -47,10 +47,10 @@ const orderSchema = new mongoose.Schema({
       type: Number,
     },
   },
-  seller:{
+  sellerId: {
     type: ObjectId,
-    ref: 'Seller'
-  }
+    ref: "Seller",
+  },
 });
 
 module.exports = mongoose.model("Order", orderSchema);

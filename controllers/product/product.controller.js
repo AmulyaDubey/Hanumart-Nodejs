@@ -3,33 +3,20 @@ const Review = require("../../models/review.model");
 const Seller = require("../../models/seller.model");
 
 exports.productById = async (req, res, next, id) => {
-  Product.findById(id)
-    .populate("reviews")
-    .exec((err, product) => {
-      if (err || !product) {
-        return res.status(400).json({
-          error: "Product not found",
-        });
-      }
-      req.product = product; // adds product object in req with user info
-      next();
-    });
+  Product.findById(id).exec((err, product) => {
+    if (err || !product) {
+      return res.status(400).json({
+        error: "Product not found",
+      });
+    }
+    req.product = product; // adds product object in req with user info
+    next();
+  });
 };
-
 
 exports.createProduct = async (req, res) => {
   const product = new Product(req.body);
   await product.save();
-  const sellerId = req.body.seller;
-  Seller.findById(sellerId).exec((err, seller) => {
-    if (err || !seller) {
-      return res.status(400).json({
-        error: "Seller not found",
-      });
-    }
-    seller.products = [...seller.products, product._id];
-    seller.save();
-  });
   res.json({ message: "Product successfully created" });
 };
 
@@ -38,6 +25,7 @@ exports.viewProduct = async (req, res) => {
 };
 
 exports.updateProduct = async (req, res) => {
+  console.log("Updating product......", req.body);
   Object.entries(req.body).map((entry) => {
     req.product[entry[0]] = entry[1];
   });

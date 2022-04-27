@@ -37,12 +37,6 @@ const sellerSchema = new mongoose.Schema({
   phone:{
     type: String,
   },
-  products: [
-    {
-      type: ObjectId,
-      ref: 'Product',
-    },
-  ],
   orders: [
     {
       type: ObjectId,
