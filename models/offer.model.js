@@ -13,7 +13,7 @@ const offerSchema = new mongoose.Schema({
   amount: {
     type: Number,
   },
-  offerType: {
+  type: {
     type: String,
   },
   maxAmount: {

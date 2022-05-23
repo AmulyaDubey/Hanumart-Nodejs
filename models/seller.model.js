@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const Address = require("./address.model");
 
 const sellerSchema = new mongoose.Schema({
-  name:{
+  name: {
     type: String,
     trim: true,
     required: true,
@@ -34,13 +34,13 @@ const sellerSchema = new mongoose.Schema({
     type: ObjectId,
     ref: Address,
   },
-  phone:{
+  phone: {
     type: String,
   },
   orders: [
     {
       type: ObjectId,
-      ref: 'Order',
+      ref: "Order",
     },
   ],
 });

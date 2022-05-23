@@ -45,6 +45,7 @@ exports.getSellerOffers = async (req, res) => {
     if (err) {
       return res.json({ error: err });
     }
+    console.log(offersList)
     return res.json(offersList)
   });
 };
